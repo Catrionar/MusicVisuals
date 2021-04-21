@@ -1,18 +1,17 @@
 package C19332586;
 
-import java.util.ArrayList;
 import ie.tudublin.*;
-//import java.util.*;
 
 public class CatrionasVisual extends Visual
 {    
     Spiral sp;
     Spiral2 sp2;
-    //SnakeBody sb;
-    //ArrayList<Snake> snake = new ArrayList<Snake>();
+    Circle cl;
+    Star star;
+    
     boolean[] keys = new boolean[1024];
     int which = 0;
-    //AudioBandsVisual abv;
+    
 
     public void settings()
     {
@@ -38,6 +37,8 @@ public class CatrionasVisual extends Visual
         
         sp = new Spiral(this);
         sp2 = new Spiral2(this);
+        cl = new Circle(this);
+        star = new Star(this);
     }
 
     public void keyPressed()
@@ -92,6 +93,18 @@ public class CatrionasVisual extends Visual
             case 2:
             {
                 sp2.render();
+                break;
+            }
+
+            case 3:
+            {
+                cl.render();
+                break;
+            }
+
+            case 4:
+            {
+                star.render();
                 break;
             }
         }

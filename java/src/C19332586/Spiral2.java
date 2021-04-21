@@ -25,14 +25,12 @@ public class Spiral2 {
         for(int i = 0 ; i < cv.getAudioBuffer().size() ; i ++)
         {
             cv.stroke(PApplet.map(i, 0, cv.getAudioBuffer().size(), 0, 255), 255, 255);
-            
             float theta = i * (thetaInc + cv.getSmoothedAmplitude() * 5);
             float x = cw + cv.sin(theta) * r;
             float y = cy - cv.cos(theta) * r;
-
+            
             ly = cv.getAudioBuffer().get(i);
             r += 0.6f + cv.getSmoothedAmplitude();
-
             cv.line(cw, cy, x, ly + y);
         }
     }
