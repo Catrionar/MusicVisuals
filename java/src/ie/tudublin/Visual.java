@@ -3,6 +3,7 @@ package ie.tudublin;
 import processing.core.PApplet;
 import ddf.minim.*;
 import ddf.minim.analysis.FFT;
+import ddf.minim.analysis.FourierTransform;
 
 public abstract class Visual extends PApplet
 {
@@ -40,7 +41,7 @@ public abstract class Visual extends PApplet
 
 	protected void calculateFFT() throws VisualException
 	{
-		fft.window(FFT.HAMMING);
+		fft.window(FourierTransform.HAMMING);
 		if (ab != null)
 		{
 			fft.forward(ab);

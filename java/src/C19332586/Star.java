@@ -19,7 +19,7 @@ public class Star {
     public void render()
     {
         float au;
-        cv.colorMode(PApplet.HSB);
+        cv.colorMode(PConstants.HSB);
         cv.strokeWeight(2);
         for(int i = 0 ; i < (cv.getAudioBuffer().size() * 0.5f) ; i ++)
         {

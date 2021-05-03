@@ -12,12 +12,13 @@ public class Spiral {
 
     public void render()
     {
-        cv.colorMode(PApplet.HSB);
+        cv.colorMode(PConstants.HSB);
         float r = 1f;
         int numPoints = 3;
-        cv.strokeWeight(3);
+        cv.strokeWeight(4);
         float thetaInc = 3.14f/ (float) numPoints;
-        float lastX, lastY;
+        float lastX;
+        float lastY;
          
         for(int i = 0 ; i < cv.getAudioBuffer().size(); i ++)
         {

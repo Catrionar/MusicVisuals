@@ -1,17 +1,49 @@
 package C19332586;
 
+import java.util.ArrayList;
+
+import ddf.minim.AudioBuffer;
 import ie.tudublin.*;
+import processing.core.PVector;
 
 public class CatrionasVisual extends Visual
 {    
     Spiral sp;
     Spiral2 sp2;
-    Circle cl;
+    Spiral3 sp3;
+    Sun sn;
     Star star;
+    Circle circle;
     
     boolean[] keys = new boolean[1024];
     int which = 0;
+    float x = random(0, width);
+    float y = random(0, height);
+    float t = 0;
+
+    float lerpedAverage = 0;
+    float sum, average = 0;
+
+    ArrayList<Snowflake> snowflakes;
+    int num = 0;
+    float call = 0f;
     
+    void addAll(Snowflake[] arr, ArrayList<Snowflake> list)
+    {
+        for(Snowflake s : arr)
+        {
+            if(num != 5)
+            {
+                list.add(s);
+            }
+            else
+            {
+                list.remove(s);
+            } 
+        }
+        
+    }
+
 
     public void settings()
     {
@@ -19,6 +51,8 @@ public class CatrionasVisual extends Visual
         
         // Use this to make fullscreen
         fullScreen();
+
+        //fullScreen(P3D);
 
         // Use this to make fullscreen and use P3D for 3D graphics
         //fullScreen(P3D, SPAN); 
@@ -29,7 +63,7 @@ public class CatrionasVisual extends Visual
         startMinim();
                 
         // Call loadAudio to load an audio file to process 
-        loadAudio("heroplanet.mp3");   
+        loadAudio("always.mp3");   
 
         
         // Call this instead to read audio from the microphone
@@ -37,8 +71,22 @@ public class CatrionasVisual extends Visual
         
         sp = new Spiral(this);
         sp2 = new Spiral2(this);
-        cl = new Circle(this);
+        sp3 = new Spiral3(this);
+        sn = new Sun(this);
         star = new Star(this);
+        circle = new Circle(this);
+
+        
+        snowflakes = new ArrayList<Snowflake>();
+        PVector a = new PVector(0, 100);
+        PVector b = new PVector(600, 100);
+        PVector c = new PVector(300, 600);
+        Snowflake seg1 = new Snowflake(this, a, b);
+        Snowflake seg2 = new Snowflake(this, b, c);
+        Snowflake seg3 = new Snowflake(this, c, a);
+        snowflakes.add(seg1);
+        snowflakes.add(seg2);
+        snowflakes.add(seg3);
     }
 
     public void keyPressed()
@@ -52,6 +100,12 @@ public class CatrionasVisual extends Visual
         else if (keyCode >= '0' && keyCode <= '6') {
             which = keyCode - '0';
             keys[keyCode] = true;
+        }
+
+        if (keyCode == UP)
+        {
+            x = random(0, width);
+            y = random(0, height);
         }
     }
 
@@ -73,32 +127,38 @@ public class CatrionasVisual extends Visual
         calculateFrequencyBands(); 
 
         // Call this is you want to get the average amplitude
-        calculateAverageAmplitude();     
+        calculateAverageAmplitude();  
         
         
+        if(t == 100)
+        {
+            change();
+            t = 0;
+        }
+
         switch (which)
         {
             case 0: 
-            {
-                text("Menu: ", 50, 50);
-                break;
-            }
-
-            case 1:
             {
                 sp.render();
                 break;
             }
 
-            case 2:
+            case 1:
             {
                 sp2.render();
                 break;
             }
 
+            case 2:
+            {
+                sp3.render();
+                break;
+            }
+
             case 3:
             {
-                cl.render();
+                sn.render();
                 break;
             }
 
@@ -107,7 +167,85 @@ public class CatrionasVisual extends Visual
                 star.render();
                 break;
             }
+            case 5:
+            {
+                for (int i = 0; i <= 2; i++)
+                {
+                    circle.render(x, y);
+                    change();
+                }
+                   
+                t += 1;
+                
+                break;
+            }
+            case 6:
+            {
+                translate(width/3.2f, 150);
+
+                for (Snowflake s : snowflakes)
+                {
+                    s.render();
+                    
+                }
+
+                for (int i = 0; i < getAudioBuffer().size(); i ++)
+                {
+                    sum += abs(getAudioBuffer().get(i));
+                }
+
+                average = sum / getAudioBuffer().size();
+                lerpedAverage = lerp(lerpedAverage, average, 0.1f);
+
+                if(call <= lerpedAverage)
+                {
+                    repeat();
+                    call += 0.25f;
+                }
+
+                break;
+            }
+
+            default:
+            {
+                sp.render();
+            }
+            
         }
+    }
+
+    public void change()
+    {
+        x = random(0, width);
+        y = random(0, height);
+    }
+
+    public void repeat() {
+        ArrayList<Snowflake> next = new ArrayList<Snowflake>();
+
+        for(Snowflake s : snowflakes)
+        {
+            Snowflake[] child = s.generate();
+            addAll(child, next);     
+        }
+        snowflakes = next;
+        num += 1;
+
+        if(num == 5)
+        {
+            num = 0;
+            snowflakes = new ArrayList<Snowflake>();
+            PVector a = new PVector(0, 100);
+            PVector b = new PVector(600, 100);
+            PVector c = new PVector(300, 600);
+            Snowflake seg1 = new Snowflake(this, a, b);
+            Snowflake seg2 = new Snowflake(this, b, c);
+            Snowflake seg3 = new Snowflake(this, c, a);
+            snowflakes.add(seg1);
+            snowflakes.add(seg2);
+            snowflakes.add(seg3);
+        }
+        
     }
 
     boolean checkKey(int k) {
@@ -115,9 +253,6 @@ public class CatrionasVisual extends Visual
             return keys[k] || keys[Character.toUpperCase(k)];
         }
         return false;
-    }
-
-    public void mousePressed() {
     }
 
     public void keyReleased() {
