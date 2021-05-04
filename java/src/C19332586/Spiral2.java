@@ -13,57 +13,58 @@ public class Spiral2 {
     public void render()
     {
         cv.colorMode(PConstants.HSB);
+        cv.strokeWeight(4);
+
         float r = 1f;
         int numPoints = 3;
-        cv.strokeWeight(4);
         float thetaInc = 3.14f/ (float) numPoints;
-        float lastX, lastY;
+
         for(int i = 0 ; i < cv.getAudioBuffer().size(); i ++)
         {
             cv.stroke(PApplet.map(i, 0, cv.getAudioBuffer().size(), 0, 255), 255, 255);
+
             float theta = i * (thetaInc + cv.getSmoothedAmplitude() * 3);
-            float x = cv.width / 2 + PApplet.sin(theta) * r;
-            float y = cv.height / 2 - PApplet.cos(theta) * r;
+            float x = cv.width / 2f + PApplet.sin(theta) * r;
+            float y = cv.height / 2f - PApplet.cos(theta) * r;
             r += 0.2f + cv.getSmoothedAmplitude();
-            lastX = x;
-            lastY = y;
-            cv.line(lastX, lastY, x, y + cv.getSmoothedAmplitude());
+
+            cv.line(x, y, x, y + cv.getSmoothedAmplitude());
         }
 
         for(int i = 0 ; i < cv.getAudioBuffer().size(); i ++)
         {
             cv.stroke(PApplet.map(i, 0, cv.getAudioBuffer().size(), 0, 255), 255, 255);
+
             float theta = i * (thetaInc + cv.getSmoothedAmplitude() * 5);
-            float x = cv.width / 2 + PApplet.sin(theta) * r ;
-            float y = cv.height / 2 - PApplet.cos(theta) * r ;
+            float x = cv.width / 2f + PApplet.sin(theta) * r ;
+            float y = cv.height / 2f - PApplet.cos(theta) * r ;
             r += 0.3f + cv.getSmoothedAmplitude();
-            lastX = x;
-            lastY = y;
-            cv.line(lastX, lastY, x, y + cv.getSmoothedAmplitude());
+
+            cv.line(x, y, x, y + cv.getSmoothedAmplitude());
         }
 
         for(int i = 0 ; i < cv.getAudioBuffer().size(); i ++)
         {
             cv.stroke(PApplet.map(i, 0, cv.getAudioBuffer().size(), 0, 255), 255, 255);
+
             float theta = i * (thetaInc + cv.getSmoothedAmplitude() * 3);
-            float x = cv.width / 2 + PApplet.sin(theta) * r ;
-            float y = cv.height / 2 - PApplet.cos(theta) * r ;
+            float x = cv.width / 2f + PApplet.sin(theta) * r ;
+            float y = cv.height / 2f - PApplet.cos(theta) * r ;
             r += 0.1f + cv.getSmoothedAmplitude();
-            lastX = x;
-            lastY = y;
-            cv.line(lastX, lastY, x, y + cv.getSmoothedAmplitude());
+
+            cv.line(x, y, x, y + cv.getSmoothedAmplitude());
         }
 
         for(int i = 0 ; i < cv.getAudioBuffer().size(); i ++)
         {
             cv.stroke(PApplet.map(i, 0, cv.getAudioBuffer().size(), 0, 255), 255, 255);
+
             float theta = i * (thetaInc + cv.getSmoothedAmplitude() * 3);
-            float x = cv.width / 2 + PApplet.sin(theta) * r ;
-            float y = cv.height / 2 - PApplet.cos(theta) * r ;
+            float x = cv.width / 2f + PApplet.sin(theta) * r ;
+            float y = cv.height / 2f - PApplet.cos(theta) * r ;
             r += cv.getSmoothedAmplitude();
-            lastX = x;
-            lastY = y;
-            cv.line(lastX, lastY, x, y + cv.getSmoothedAmplitude());
+
+            cv.line(x, y, x, y + cv.getSmoothedAmplitude());
         }
     }
 }

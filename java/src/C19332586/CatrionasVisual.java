@@ -2,7 +2,6 @@ package C19332586;
 
 import java.util.ArrayList;
 
-import ddf.minim.AudioBuffer;
 import ie.tudublin.*;
 import processing.core.PVector;
 
@@ -17,9 +16,9 @@ public class CatrionasVisual extends Visual
     
     boolean[] keys = new boolean[1024];
     int which = 0;
+
     float x = random(0, width);
     float y = random(0, height);
-    float t = 0;
 
     float lerpedAverage = 0;
     float sum, average = 0;
@@ -27,22 +26,6 @@ public class CatrionasVisual extends Visual
     ArrayList<Snowflake> snowflakes;
     int num = 0;
     float call = 0f;
-    
-    void addAll(Snowflake[] arr, ArrayList<Snowflake> list)
-    {
-        for(Snowflake s : arr)
-        {
-            if(num != 5)
-            {
-                list.add(s);
-            }
-            else
-            {
-                list.remove(s);
-            } 
-        }
-        
-    }
 
 
     public void settings()
@@ -102,11 +85,6 @@ public class CatrionasVisual extends Visual
             keys[keyCode] = true;
         }
 
-        if (keyCode == UP)
-        {
-            x = random(0, width);
-            y = random(0, height);
-        }
     }
 
     public void draw()
@@ -128,13 +106,8 @@ public class CatrionasVisual extends Visual
 
         // Call this is you want to get the average amplitude
         calculateAverageAmplitude();  
+
         
-        
-        if(t == 100)
-        {
-            change();
-            t = 0;
-        }
 
         switch (which)
         {
@@ -174,8 +147,6 @@ public class CatrionasVisual extends Visual
                     circle.render(x, y);
                     change();
                 }
-                   
-                t += 1;
                 
                 break;
             }
@@ -186,7 +157,6 @@ public class CatrionasVisual extends Visual
                 for (Snowflake s : snowflakes)
                 {
                     s.render();
-                    
                 }
 
                 for (int i = 0; i < getAudioBuffer().size(); i ++)
@@ -244,6 +214,22 @@ public class CatrionasVisual extends Visual
             snowflakes.add(seg1);
             snowflakes.add(seg2);
             snowflakes.add(seg3);
+        }
+        
+    }
+
+    void addAll(Snowflake[] array, ArrayList<Snowflake> list)
+    {
+        for(Snowflake s : array)
+        {
+            if(num != 5)
+            {
+                list.add(s);
+            }
+            else
+            {
+                list.remove(s);
+            } 
         }
         
     }
