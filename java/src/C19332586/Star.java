@@ -21,6 +21,7 @@ public class Star {
         float au;
         cv.colorMode(PConstants.HSB);
         cv.strokeWeight(2);
+        
         for(int i = 0 ; i < (cv.getAudioBuffer().size() * 0.5f) ; i ++)
         {
             cv.stroke(PApplet.map(i, 0, cv.getAudioBuffer().size(), 0, 255), 255, 255);

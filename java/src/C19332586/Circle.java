@@ -16,6 +16,7 @@ public class Circle {
         float c = PApplet.map(cv.getSmoothedAmplitude(), 0, 1, 0, 255);
         cv.stroke(c, 255, 255);
         cv.noFill();
+        
         float size = cv.random(cv.getSmoothedAmplitude()*10);
         float s = 100 + (100 * (cv.getSmoothedAmplitude()* size) * 10);
 
