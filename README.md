@@ -52,6 +52,7 @@ CatrionasVisual.java is the file that is called from main. This is where I call 
 - y is set to be half the height minus cos(theta) * r. 
 - r is increased each time by the amplitude and 0.6f.
 - line is drawn using x and y values and amplitude, these are drawn in circles because of the strokeWeight.
+
 ![An image](images/Spiral.PNG)
 
 ## Spiral2.java
@@ -61,6 +62,7 @@ CatrionasVisual.java is the file that is called from main. This is where I call 
 - the difference between each of the for loops is the value thetaInc and getSmoothAmpliude() is multiplied by and the number r is increased by. 
 - this makes the dots appear closer or further apart from eachother. 
 - since r is a public variable it increases each time and instead of going back to 1f after each for loop it starts from where the last dot was drawn, this creates the visual to appear like it has layers. 
+
 ![An image](images/Spiral2.PNG)
 
 ## Spiral3.java
@@ -69,6 +71,7 @@ CatrionasVisual.java is the file that is called from main. This is where I call 
 - thetaInc is divided by the audio buffer size.
 - ly contains the audio.
 - each of the lines come from the center of the screen and instead of increasing length a line is added to the section, this creates the flower effect when the Amplitude is high.
+
 ![An image](images/Spiral3.PNG)
 
 ## Sun.java
@@ -78,17 +81,20 @@ CatrionasVisual.java is the file that is called from main. This is where I call 
 - this value is then smoothed using lerp().
 - the stroke colour is determined this time using getSmoothedAmplitude(), this creates the sun colours. 
 - using sin and cos this created the lines growing out of the centre in a circle.
-- When I noticed the sunset colours I decided to add a round circle in the middle and added eyes for fun 
+- When I noticed the sunset colours I decided to add a round circle in the middle and added eyes for fun.
+
 ![An image](images/Sun.PNG)
 
 ## Star.java
 - render() draws a star that has a waveform for each of the edges. 
 - uses AudioBuffer to draw the wave lines. 
+
 ![An image](images/Star.PNG)
 
 ## Circle.java
 - render() draws circles of random size using the random function in java.
 - these circles then grow to the sound of the music and change colour. 
+
 ![An image](images/Circle.PNG)
 
 ## Snowflake.java
@@ -96,6 +102,7 @@ CatrionasVisual.java is the file that is called from main. This is where I call 
 - generate() creates new snowflakes for each of the PVectors. 
 - each of these new snowflakes are assigned to each child element and child is returned.
 - render() changes the colour based on the amplitude and then draws the lines using the PVector a and b x and y values. 
+
 ![An image](images/Snowflake.PNG)
 
 # What I am most proud of in the assignment
@@ -104,6 +111,8 @@ When I was getting it to react to music I struggled as I was trying to remove al
 Without using call to limit the amount of times repeat() is called, it jumped to the end snowflake and back again. This call also also allows it to react to music so when lerped average increases slowly, the snowflake changes slowly but when it is being increased quickly it changes quickly.
 When repeat() was called more than 5 times the program slowed down and crashed as the lines being drawn were so small and unnoticable, therefore to eliminate this problem I only allowed to call it 5 times before starting over again. 
 Facing these problems with the Snowflake visual made completion satisfying which makes it all worth while. I enjoyed the challenge of the assignment and am overall happy with the final outcome.
+
+[![YouTube](http://img.youtube.com/vi/EqEOtBha9RY/0.jpg)](https://www.youtube.com/watch?v=EqEOtBha9RY)
 
 # Markdown Tutorial
 
